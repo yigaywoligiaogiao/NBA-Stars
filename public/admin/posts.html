@@ -1,12 +1,13 @@
 <script src="/login/status"></script>
 <script>
-  if(!isLogin){
+  if (!isLogin) {
     location.href = "login.html";
   }
-  
+
 </script>
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8">
   <title>Posts &laquo; Admin</title>
@@ -16,6 +17,7 @@
   <link rel="stylesheet" href="../assets/css/admin.css">
   <script src="../assets/vendors/nprogress/nprogress.js"></script>
 </head>
+
 <body>
   <script>NProgress.start()</script>
 
@@ -65,29 +67,7 @@
             <th class="text-center" width="100">操作</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>随便一个名称</td>
-            <td>小小</td>
-            <td>潮科技</td>
-            <td class="text-center">2016/10/07</td>
-            <td class="text-center">已发布</td>
-            <td class="text-center">
-              <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
-          <tr>
-            <td>随便一个名称</td>
-            <td>小小</td>
-            <td>潮科技</td>
-            <td class="text-center">2016/10/07</td>
-            <td class="text-center">已发布</td>
-            <td class="text-center">
-              <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
+        <tbody id="tb">
           <tr>
             <td>随便一个名称</td>
             <td>小小</td>
@@ -143,6 +123,46 @@
 
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="../assets/vendors/art-template/template-web.js"></script>
+  <script id="postsShowTpl" type="text/html">
+    {{each res}}
+    <tr>
+        <td>{{$value.title}}</td>
+        <td>{{$value.author.nickName}}</td>
+        <td>{{$value.category.title}}</td>
+        <td class="text-center">{{$imports.dateformat($value.createAt)}}</td>
+        <td class="text-center" >{{$value.state==0?"草稿":"已发布"}}</td>
+        <td class="text-center">
+          <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
+          <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+        </td>
+      </tr>
+      {{/each}}
+  </script>
   <script>NProgress.done()</script>
+  <script>
+    function dateformat(date) {
+      var d = new Date(date);
+      var hour = d.getHours();
+      var min = d.getMinutes();
+      var sec = d.getSeconds();
+      console.log(hour);
+
+      hour = hour < 10 ? "0" + hour : hour;
+      min = min < 10 ? "0" + min : min;
+      sec = sec < 10 ? "0" + sec : sec;
+      return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + hour + ":" + min + ":" + sec
+    }
+    // template.defaults.imports.dateformat = dateformat;
+    $.ajax({
+      type: "get",
+      url: "/posts",
+      success: function (res) {
+        var html = template("postsShowTpl", { res: res.records })
+        $("#tb").html(html)
+      }
+    })
+  </script>
 </body>
+
 </html>
