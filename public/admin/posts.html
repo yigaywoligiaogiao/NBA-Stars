@@ -26,7 +26,7 @@
       <button class="btn btn-default navbar-btn fa fa-bars"></button>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="profile.html"><i class="fa fa-user"></i>个人中心</a></li>
-        <li><a href="login.html"><i class="fa fa-sign-out"></i>退出</a></li>
+        <li><a href="javascript:;" id="logoutBtn"><i class="fa fa-sign-out"></i>退出</a></li>
       </ul>
     </nav>
     <div class="container-fluid">
@@ -68,17 +68,7 @@
           </tr>
         </thead>
         <tbody id="tb">
-          <tr>
-            <td>随便一个名称</td>
-            <td>小小</td>
-            <td>潮科技</td>
-            <td class="text-center">2016/10/07</td>
-            <td class="text-center">已发布</td>
-            <td class="text-center">
-              <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
+          <!-- 渲染区 -->
         </tbody>
       </table>
     </div>
@@ -124,6 +114,7 @@
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script src="../assets/vendors/art-template/template-web.js"></script>
+  <script src="../assets/js/common.js"></script>
   <!-- 文章列表渲染模板 -->
   <script id="postsShowTpl" type="text/html">
     {{each res}}
@@ -134,8 +125,8 @@
         <td class="text-center">{{$imports.dateformat($value.createAt)}}</td>
         <td class="text-center" >{{$value.state==0?"草稿":"已发布"}}</td>
         <td class="text-center">
-          <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-          <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+          <a href="/admin/post-add.html?id={{$value._id}}" class="btn btn-default btn-xs edit" data-id='{{$value._id}}'>编辑</a>
+          <a href="javascript:;" class="btn btn-danger btn-xs del" data-id='{{$value._id}}' >删除</a>
         </td>
       </tr>
       {{/each}}
@@ -173,7 +164,7 @@
       sec = sec < 10 ? "0" + sec : sec;
       return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + hour + ":" + min + ":" + sec
     }
-    // template.defaults.imports.dateformat = dateformat;
+    template.defaults.imports.dateformat = dateformat;
     //文章列表渲染和分页渲染
     $.ajax({
       type: "get",
@@ -250,8 +241,8 @@
       $.ajax({
         type: "get",
         url: "/posts",
-        data:{
-          page:page
+        data: {
+          page: page
         },
         success: function (res) {
           var html = template("postsShowTpl", { res: res.records })
@@ -263,6 +254,18 @@
 
 
     }
+    //文章删除功能
+    $("#tb").on("click", ".del", function () {
+      var id = $(this).data("id");
+      $.ajax({
+        type:"delete",
+        url:"/posts/"+id,
+        success:function(){
+            location.reload()
+        }
+      })
+    })
+
   </script>
 </body>
 
