@@ -307,10 +307,12 @@
         type: "get",
         url: "/users/" + id,
         success: function (response) {
-          console.log(response);
-
           var html = template("tplEdit", { response: response });
-          $(".editUser").html(html)
+          $(".editUser").html(html);
+          //将图片地址保存在隐藏域中
+          $("#hiddenIpt").val(response.avatar)
+          //隐藏错误提示信息
+          $("#err").hide()
         }
       })
     })
