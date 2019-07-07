@@ -11,5 +11,17 @@ $("#logoutBtn").on("click", function () {
         })
     }
 
+});
+
+$.ajax({
+    type:'get',
+    url:"/users/"+userId,
+    success:function(res){
+      $(".avatar").attr("src",res.avatar)
+        $(".name").text(res.nickName)
+
+    }
+
+
 })
 

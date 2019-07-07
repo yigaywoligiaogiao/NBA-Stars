@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
 	// 数据格式校验
 	const { error } = validatePost(req.fields);
 	// 格式不符合要求
-	if (error) return res.status(400).send({message: error.details});
+	if (error) return res.status(400).send({message: error.message});
 	// 添加作者
 	req.fields.author = req.session.userInfo._id;
 	// 创建分类
