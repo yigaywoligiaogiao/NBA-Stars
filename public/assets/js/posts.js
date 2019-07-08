@@ -1,15 +1,5 @@
 
-//日期格式化函数
-function dateformat(date) {
-  var d = new Date(date);
-  var hour = d.getHours();
-  var min = d.getMinutes();
-  var sec = d.getSeconds();
-  hour = hour < 10 ? "0" + hour : hour;
-  min = min < 10 ? "0" + min : min;
-  sec = sec < 10 ? "0" + sec : sec;
-  return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + hour + ":" + min + ":" + sec
-}
+
 template.defaults.imports.dateformat = dateformat;
 //文章列表渲染和分页渲染
 $.ajax({

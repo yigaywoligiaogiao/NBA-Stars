@@ -28,6 +28,8 @@ function changePage(page) {
       page: page
     },
     success: function (res) {
+      console.log(res);
+      
       var html = template("cmtTpl", res);
       $("#tb").html(html)
       var html2 = template("cmtPageTpl", res)

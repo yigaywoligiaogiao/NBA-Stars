@@ -14,7 +14,12 @@
           password: password
         },
         success: function (res) {
-         location.href = "index.html"
+          if(res.role=='admin'){
+            location.href = "/admin/index.html"
+          }else {
+            location.href = "/index.html"
+          }
+         
 
         },
         error: function (err) {

@@ -10,7 +10,7 @@ $.ajax({
   }
 })
 //选择封面上传
-$("#feature").on("change", function () {
+$("#postAddBox").on("change","#feature", function () {
   var formdata = new FormData();
   formdata.append("cover", this.files[0]);
   $.ajax({
@@ -42,16 +42,7 @@ $("#postAddForm").on("submit", function () {
   })
   return false;
 })
-//获取url参数函数
-function getUrlParams(name) {
-  var urlParams = (location.search).slice(1).split("&");
-  for (var v of urlParams) {
-    if (v.split("=")[0] == name) {
-      return v.split("=")[1];
-    }
-  }
-  return;
-}
+
 //文章修改渲染
 if (getUrlParams("id") != undefined) {
   $.ajax({
