@@ -12,6 +12,10 @@ if (getUrlParams("id")) {
 
   //文章点赞
   $(".article").on("click", "#like", function () {
+    $(this).css({
+      color:"red",
+      pointerEvents:"none"
+    })
     var o = $(this)
     $.ajax({
       type: 'post',
@@ -73,5 +77,15 @@ $("#comment").on("submit","form",function(){
  
   return false;
 })
+//test
+//文章评论列表
+  $.ajax({
+    type:"get",
+    url:"/comments/"+getUrlParams("id"),
+    success:function(res){
+      var html = template("uCommentTpl",{res:res.reverse()})
+      $("#uComment").html(html)
+    }
+  })
 
 

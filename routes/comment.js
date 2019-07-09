@@ -13,6 +13,7 @@ comment.get('/count', require('./actions/comment/count'));
 comment.get('/lasted', require('./actions/comment/lasted'));
 // 更改评论状态
 comment.put('/:id', require('./actions/comment/findByIdAndUpdate'))
-
+//根据文章id获取文章评论
+comment.get('/:id',require('./actions/comment/findById'))
 // 导出路由
 module.exports = comment;

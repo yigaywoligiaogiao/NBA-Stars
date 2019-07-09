@@ -1,6 +1,7 @@
 <script src="/login/status"></script>
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,17 +13,18 @@
 
   <script src="/assets/vendors/nprogress/nprogress.js"></script>
 </head>
+
 <body>
   <div class="wrapper">
     <div class="topnav">
       <ul id="topNav">
-     
+
       </ul>
     </div>
     <div class="header">
       <h1 class="logo"><a href="index.html"><img src="assets/img/nba.jpg" alt=""></a></h1>
       <ul class="nav">
-     
+
       </ul>
       <div class="search">
         <form>
@@ -177,52 +179,64 @@
     </div>
     <div class="content">
       <div class="article">
-   
-        </div>
-        <div id="comment">
 
-
-        </div>
-        <div class="panel hots">
-            <h3>热门推荐</h3>
-            <ul id="recommendList">
-              <li>
-                <a href="javascript:;">
-                  <img src="uploads/hots_2.jpg" alt="">
-                  <span>星球大战:原力觉醒视频演示 电影票68</span>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:;">
-                  <img src="uploads/hots_3.jpg" alt="">
-                  <span>你敢骑吗？全球第一辆全功能3D打印摩托车亮相</span>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:;">
-                  <img src="uploads/hots_4.jpg" alt="">
-                  <span>又现酒窝夹笔盖新技能 城里人是不让人活了！</span>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:;">
-                  <img src="uploads/hots_5.jpg" alt="">
-                  <span>实在太邪恶！照亮妹纸绝对领域与私处</span>
-                </a>
-              </li>
-            </ul>
-          </div>
       </div>
-      
+      <div id="comment">
+
+
+      </div>
+      <div id="commentList">
+        <h4>用户评论：</h4>
+        <ul id="uComment">
+          <li>
+            <div class="uAvatar">
+              <img src="./uploads/avatar.jpg" alt="">
+            </div>
+            <div class="uContent">
+              <p>用户1 在time说 </p>
+              <p>评论内容</p>
+            </div>
+          </li>
+          <li>
+            <div class="uAvatar">
+              <img src="./uploads/avatar.jpg" alt="">
+            </div>
+            <div class="uContent">
+              <p>用户1 在time说 </p>
+              <p>评论内容</p>
+            </div>
+          </li>
+          <li>
+            <div class="uAvatar">
+              <img src="./uploads/avatar.jpg" alt="">
+            </div>
+            <div class="uContent">
+              <p>用户1 在time说 </p>
+              <p>评论内容</p>
+            </div>
+          </li>
+        </ul>
+
+
+      </div>
+      <div class="panel hots">
+        <h3>热门推荐</h3>
+        <ul id="recommendList">
+
+        </ul>
+      </div>
     </div>
-    <div class="footer">
-      <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
-    </div>
+
+  </div>
+  <div class="footer">
+    <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
+  </div>
   </div>
   <script src="/assets/vendors/jquery/jquery.js"></script>
   <script src="./assets/vendors/art-template/template-web.js"></script>
+  <script src="./assets/js/public.js"></script>
   <!-- 文章模板 -->
-<script type="text/html" id="atlTpl">
+  <script type="text/html" id="atlTpl">
   <div class="breadcrumb">
           <dl>
             <dt>当前位置：</dt>
@@ -235,7 +249,7 @@
         </h2>
        
         <div class="meta">
-          <span>{{author.nickName}} 发布于 {{createAt.slice(0,-8).replace("T"," ")}}</span>
+          <span>{{author.nickName}} 发布于 {{dateformat(createAt)}}</span>
           <span>分类: <a href="javascript:;">{{category.title}}</a></span>
           <span>阅读: ({{meta.views}})</span>
           <span>评论: ({{meta.comments}})</span>
@@ -243,9 +257,9 @@
         </div>
         {{content}}
 </script>
-<!-- 评论模板 -->
-<script id="commentTpl" type="text/html">
- 
+  <!-- 评论模板 -->
+  <script id="commentTpl" type="text/html">
+
   <form>
     <h4>参与评论：</h4>
       <textarea  class='form-control' rows='3' name='content'></textarea>
@@ -253,7 +267,20 @@
   </form>
 
 </script>
-  <script src="./assets/js/public.js"></script>
+<!-- 用户评论模板 -->
+<script id="uCommentTpl" type="text/html">
+  {{each res}}
+  <li>
+      <div class="uAvatar">
+        <img src="{{$value.author.avatar}}" alt="">
+      </div>
+      <div class="uContent">
+        <p><a href="javascript:;">{{$value.author.nickName}}</a> 在  {{dateformat($value.createAt)}}  说: </p>
+        <p>{{$value.content}}</p>
+      </div>
+    </li>
+    {{/each}}
+</script>
   <script src="./assets/js/detail.js"></script>
 </body>
 

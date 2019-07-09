@@ -1363,3 +1363,25 @@ img {
     display: none;
   }
 }
+#commentList #uComment li{
+  height: 60px;
+  padding: 10px 20px;
+  border-top: 1px solid #ccc;
+}
+.uAvatar {
+  float: left;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.uAvatar img {
+  width: 100%;
+}
+.uContent {
+  float: left;
+  margin-left: 8px;
+}
+.uContent p:first-child {
+  font-size: 14px;
+}
