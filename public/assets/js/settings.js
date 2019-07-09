@@ -33,3 +33,24 @@
         return false;
       })
   
+
+      $.ajax({
+        type:"get",
+        url:"/settings",
+        success:function(res){
+          if(res){
+            $("#site_logo").val(res.logo)
+            $("#img").attr("src",res.logo);
+            $("#site_name").val(res.title);
+            $("#site_description").text(res.description);
+            $("#site_keywords").val(res.keywords)
+            $("#comment_status").prop("checked",res.comment)
+            $("#comment_reviewed").prop("checked",res.review)
+
+
+          }
+          
+        }
+
+
+      })
